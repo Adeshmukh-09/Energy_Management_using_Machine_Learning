@@ -21,7 +21,7 @@ class DataIngestion:
         try:
             logging.info("Reading the raw data from CSV file")
 
-            data =  pd.read_csv("D:\\Data Science Roadmap and Practice\\Machine Learning Projects\\Energy_Management_using_Machine_Learning\\notebook\\Data\\energy_plant_data.csv")
+            data =  pd.read_csv("D:\\Data Science Roadmap and Practice\\Machine Learning Projects\\Energy_Management_using_Machine_Learning\\notebook\\Data\\energy_plant_data_updated.csv")
 
             os.makedirs(os.path.dirname(os.path.join(self.ingestion_config.raw_data_path)),exist_ok= True)
             data.to_csv(self.ingestion_config.raw_data_path,index = False,header = True)
