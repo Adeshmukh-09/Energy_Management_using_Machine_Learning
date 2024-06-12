@@ -102,6 +102,38 @@ class ModelTrainer:
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
             best_model = models[best_model_name]
 
+            print("This is the best model")
+            print(best_model)
+
+            model_name = list(parameters.keys())
+            actual_model = ''
+            for model in model_name:
+                if best_model_name == model:
+                    actual_model = actual_model + model
+            
+            best_paramterts = parameters[actual_model]
+
+            mlflow.set_registry_uri("https://dagshub.com/Adeshmukh-09/Energy_Management_using_Machine_Learning.mlflow")
+            tracking_url_type_store = urlparse(mlflow.get_artifact_uri()).scheme
+            if mlflow.active_run():
+                mlflow.end_run()
+            
+            with mlflow.start_run():
+                predicted_qualities = best_model.predict(X_test)
+                (mae, mse, rmse, r2_score_result) = self.evaluation_metric(y_test,predicted_qualities)
+                mlflow.log_params(best_paramterts)
+                mlflow.log_metric("mae",mae)
+                mlflow.log_metric("mse",mse)
+                mlflow.log_metric("rmse",rmse)
+                mlflow.log_metric("r2_score_result",r2_score_result)
+
+                if tracking_url_type_store != "file":
+                    mlflow.sklearn.log_model(best_model,"model",registered_model_name = actual_model)
+
+                else:
+                    mlflow.sklearn.log_model(best_model, "model")
+
+
             if best_model_score < 0.6:
                 raise CustomException("No best model found")
             logging.info(f"Best model found on train and test data")
