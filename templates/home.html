@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="login">
+      <h1>Electricity Consumption of a Power Plant</h1>
+
+      <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+          <legend>Enter the required field to predict the electricity consumption of a power plant</legend>
+        </h1>
+        <div class="mb-3">
+          <label class="form-label">Ambient Temperature</label>
+          <input
+            class="form-control"
+            type="number"
+            name="Ambient Temperature"
+            placeholder="Enter the ambient temperature"
+            step="0.000001"
+            min="0"
+            max="1000000000"
+          />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Exhaust Vacuum</label>
+            <input
+              class="form-control"
+              type="number"
+              name="Exhaust Vacuum"
+              placeholder="Enter the Exhaust Vacuum"
+              step="0.000001"
+              min="0"
+              max="1000000000"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Ambient Pressure</label>
+            <input
+              class="form-control"
+              type="number"
+              name="Ambient Pressure"
+              placeholder="Enter the Ambient Pressure"
+              step="0.000001"
+              min="-1000000000"
+              max="1000000000"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Relative Humidity</label>
+            <input
+              class="form-control"
+              type="number"
+              name="Relative Humidity"
+              placeholder="Enter the Relative Humidity"
+              step="0.000001"
+              min="0"
+              max="1000000000"
+            />
+          </div>
+
+        <div class="mb-3">
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="Click to find out the electricity consumption"
+            required
+          />
+        </div>
+      </form>
+      <h2>Electricity Consumption would be: {{final_result}}</h2>
+    </div>
+  </body>
+</html>
